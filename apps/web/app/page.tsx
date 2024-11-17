@@ -1,9 +1,4 @@
-import { Button } from "@repo/ui/button";
-
+import { Header } from '@repo/ui/header';
 export default function Home() {
-  return (
-    <div>
-      <Button className='bg-red-800' appName="web">Click me!</Button>
-    </div>
-  );
+  return <Header className="bordder border-red-600 w-full" />;
 }

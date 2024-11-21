@@ -8,3 +8,10 @@ body {
   line-height: 1.5;
   box-sizing: border-box;
 }
+
+/* [data-theme='dark'] {
+  --my-color: #000;
+}
+[data-theme='pink'] {
+  --my-color: #ffabc8;
+} */

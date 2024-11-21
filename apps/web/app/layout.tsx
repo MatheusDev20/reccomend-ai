@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './styles/global.css';
+import { themeChange } from 'theme-change';
+import { useEffect } from 'react';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -21,8 +23,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode,
 }>) {
+  useEffect(() => {
+    themeChange(false);
+    // 👆 false parameter is required for react project
+  }, []);
   return (
-    <html lang="en">
+    <html lang="en" data-theme="cupcake">
       <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0"

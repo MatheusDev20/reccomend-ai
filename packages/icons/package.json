@@ -1,0 +1,15 @@
+{
+  "name": "@repo/icons",
+  "version": "0.0.0",
+  "description": "Icons",
+  "devDependencies": {
+    "@svgr/cli": "8.1.0"
+  },
+  "private": true,
+  "module": "src/index.ts",
+  "scripts": {
+    "svgr": "svgr --typescript --icon --title-prop -d src -- assets",
+    "build": "pnpm svgr",
+    "dev": "svgr"
+  }
+}

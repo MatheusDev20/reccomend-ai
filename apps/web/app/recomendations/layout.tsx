@@ -2,6 +2,7 @@
 
 import { Header } from '@repo/ui/header';
 import { useTheme } from '../context/theme-context';
+import Link from 'next/link';
 
 export default function RecomendationsLayout({
   children, // Page Outlet
@@ -15,6 +16,7 @@ export default function RecomendationsLayout({
       <Header
         className="flex p-3 md:p-4 border border-b-1 items-center w-full min-h-[50px] justify-between"
         theme={theme}
+        homeLink={<Link href="/recomendations">Recomenda AI</Link>}
         toogleTheme={toggleTheme}
       />
       {children}

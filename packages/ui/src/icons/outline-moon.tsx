@@ -1,4 +1,8 @@
-export const OutlineMoon = () => {
+type Props = React.SVGProps<SVGSVGElement> & {
+  actionFn: () => void,
+};
+
+export const OutlineMoon = ({ actionFn }: Props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -6,7 +10,8 @@ export const OutlineMoon = () => {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="ui-w-6 ui-h-6"
+      className="ui-w-6 ui-h-6 ui-cursor-pointer"
+      onClick={actionFn}
     >
       <path
         strokeLinecap="round"

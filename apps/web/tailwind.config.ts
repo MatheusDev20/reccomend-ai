@@ -1,17 +1,14 @@
+// tailwind.config.ts
 import type { Config } from 'tailwindcss';
-const colors = require('tailwindcss/colors');
+import sharedConfig from '@repo/tailwind-config';
 
-const config: Config = {
+const config: Pick<Config, 'content' | 'presets'> = {
   content: [
     './app/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './app/components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  theme: {},
-  plugins: [require('daisyui')],
-  daisyui: {
-    themes: ['cupcake', 'dark'],
-  },
+  presets: [sharedConfig],
 };
 
 export default config;

@@ -1,5 +1,7 @@
 'use client';
 
+import { OutlineMoon } from './icons/outline-moon';
+
 type HeaderProps = {
   className: string,
 };
@@ -7,7 +9,9 @@ type HeaderProps = {
 export const Header = ({ className }: HeaderProps) => {
   return (
     <header className={className}>
-      <h3>Recomenda AI</h3>
+      <h1 className="ui-text-red-700">Toogle</h1>
+      <OutlineMoon />
+      {/* <OutlineMoon /> */}
     </header>
   );
 };

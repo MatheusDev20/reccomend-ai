@@ -20,9 +20,8 @@
     "type-check": "tsc --noEmit"
   },
   "devDependencies": {
-    "@repo/icons": "workspace:*",
-    "@repo/tailwind-config": "workspace:*",
     "@repo/eslint-config": "workspace:*",
+    "@repo/tailwind-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@turbo/gen": "^1.12.4",
     "@types/eslint": "^8.56.5",
@@ -39,6 +38,7 @@
     "typescript": "5.5.4"
   },
   "dependencies": {
+    "clsx": "^2.1.1",
     "react": "^18.2.0"
   }
 }

@@ -3,6 +3,8 @@
 import { Header } from '@repo/ui/header';
 import { useTheme } from '../context/theme-context';
 import Link from 'next/link';
+import { HeaderNavigation } from '../components/header-navigation ';
+import { useState } from 'react';
 
 export default function RecomendationsLayout({
   children, // Page Outlet
@@ -10,13 +12,16 @@ export default function RecomendationsLayout({
   children: React.ReactNode,
 }) {
   const { theme, changeTheme } = useTheme();
+  const [isToggled, setIsToggled] = useState(false);
   return (
     <main className="min-h-screen">
       <Header
-        className="flex dark:black-tone-6 py-3 px-3 pl-6 pr-4 md:p border dark:border-b-[0.5px] dark:border-reddit-gray-main border-l-0 border-r-0 border-t-0 items-center w-full min-h-[50px] justify-between"
         theme={theme}
         homeLink={<Link href="/recomendations">Recomenda AI</Link>}
+        navigation={<HeaderNavigation isToggled={isToggled} />}
         toogleTheme={changeTheme}
+        toggleNav={() => setIsToggled(!isToggled)}
+        isToggled={isToggled}
       />
       {children}
     </main>

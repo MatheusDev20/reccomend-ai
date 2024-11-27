@@ -10,11 +10,7 @@
   ],
   "exports": {
     "./index.css": "./dist/index.css",
-    "./button": "./src/button.tsx",
-    "./card": "./src/card.tsx",
-    "./code": "./src/code.tsx",
-    "./header": "./src/header.tsx",
-    "./recomendation-card": "./src/recomendation-card.tsx"
+    "./header": "./src/header.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",

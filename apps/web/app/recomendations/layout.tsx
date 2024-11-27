@@ -9,15 +9,14 @@ export default function RecomendationsLayout({
 }: {
   children: React.ReactNode,
 }) {
-  const { theme, toggleTheme } = useTheme();
-
+  const { theme, changeTheme } = useTheme();
   return (
-    <main className="min-h-screen" data-theme={theme}>
+    <main className="min-h-screen">
       <Header
-        className="flex p-3 md:p-4 border border-b-1 items-center w-full min-h-[50px] justify-between"
+        className="flex dark:black-tone-6 py-3 px-3 pl-6 pr-4 md:p border dark:border-b-[0.5px] dark:border-reddit-gray-main border-l-0 border-r-0 border-t-0 items-center w-full min-h-[50px] justify-between"
         theme={theme}
         homeLink={<Link href="/recomendations">Recomenda AI</Link>}
-        toogleTheme={toggleTheme}
+        toogleTheme={changeTheme}
       />
       {children}
     </main>

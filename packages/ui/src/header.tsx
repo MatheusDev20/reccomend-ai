@@ -1,7 +1,5 @@
 'use client';
-
-import { OutlineMoon } from './icons/outline-moon';
-import { SolidMoon } from './icons/solid-moon';
+import { ThemeSwitch } from './theme-switch';
 
 type HeaderProps = {
   className: string,
@@ -18,14 +16,10 @@ export const Header = ({
 }: HeaderProps) => {
   return (
     <header className={className}>
-      {homeLink}
-      {theme === 'cupcake' ? (
-        <OutlineMoon actionFn={toogleTheme} />
-      ) : (
-        <SolidMoon actionFn={toogleTheme} />
-      )}
-
-      {/* <OutlineMoon /> */}
+      <div>{homeLink}</div>
+      <div>
+        <ThemeSwitch currentTheme={theme} toggle={toogleTheme} />
+      </div>
     </header>
   );
 };

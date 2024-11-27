@@ -1,9 +1,12 @@
+'use client';
+
 import Link from 'next/link';
 import { SubjectCard } from '@/app/components/subject-card';
 import MovieIcon from '@/public/movies.svg';
 import MusicIcon from '@/public/music.svg';
 import Image from 'next/image';
 
+// Get from the Server
 const recomendations = [
   {
     title: 'Filmes',
@@ -20,15 +23,16 @@ const recomendations = [
 export default function Page() {
   return (
     <section className="flex flex-col items-center gap-12 justify-center p-12">
-      <p className="text-sm md:text-lg">
+      <p className="text-sm md:text-xl dark:text-cyan-400">
         Tenha recomendações de filmes músicas e muito mais, baseadas nos seus
         gostos!
       </p>
 
-      <p>Quero recomendações de: </p>
+      <p className="dark:text-white">Quero recomendações de: </p>
       <div className="flex flex-col gap-6 w-[50%]">
         {recomendations.map((recomendation) => (
           <Link
+            key={recomendation.title}
             href={`/recomendations/${recomendation.redirectTo}`}
             className="w-full"
           >

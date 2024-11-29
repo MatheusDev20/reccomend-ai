@@ -1,54 +1,34 @@
 'use client';
-
-import Link from 'next/link';
-import { SubjectCard } from '@/app/components/subject-card';
-import MovieIcon from '@/public/movies.svg';
-import MusicIcon from '@/public/music.svg';
+import MediaPlayer from '@/public/media-player-p.png';
 import Image from 'next/image';
-
-// Get from the Server
-const recomendations = [
-  {
-    title: 'Filmes',
-    icon: MovieIcon,
-    redirectTo: 'movies',
-  },
-  {
-    title: 'Músicas',
-    icon: MusicIcon,
-    redirectTo: 'music',
-  },
-];
 
 export default function Page() {
   return (
-    <section className="flex flex-col items-center gap-12 justify-center p-12">
-      <p className="text-sm md:text-xl dark:text-cyan-400">
-        Tenha recomendações de filmes músicas e muito mais, baseadas nos seus
-        gostos!
-      </p>
+    <main className="h-full w-full flex flex-col pl-12 pr-12">
+      <section className="flex md:flex-row">
+        {/* Left Column */}
+        <div className="md:w-1/2 sm:w-full min-h-full flex flex-col items-center pt-6 md:pt-16">
+          <h1 className="mt-10 md:text-4xl font-bold tracking-tight text-sm text-gray-900">
+            Receba as melhores recomendações utilizando{' '}
+            <span className="text-[#6C63FF]">Inteligência Artificial</span>
+          </h1>
+          <p className="items-start mt-8 text-sm md:text-md font-semibold leading-8 text-gray-600">
+            Descubra filmes, músicas e curiosidades incríveis através de uma
+            experiência intuitiva e conversacional. Peça recomendações e deixe a
+            tecnologia fazer o resto.
+          </p>
+        </div>
 
-      <p className="dark:text-white">Quero recomendações de: </p>
-      <div className="flex flex-col gap-6 w-[50%]">
-        {recomendations.map((recomendation) => (
-          <Link
-            key={recomendation.title}
-            href={`/recomendations/${recomendation.redirectTo}`}
-            className="w-full"
-          >
-            <SubjectCard
-              icon={
-                <Image
-                  className="h-12 w-12 object-cover rounded-full"
-                  src={recomendation.icon}
-                  alt={recomendation.title}
-                />
-              }
-              title={recomendation.title}
-            />
-          </Link>
-        ))}
-      </div>
-    </section>
+        {/* Right Column */}
+        <div className="md:w-1/2 h-full bg-center hidden md:flex">
+          <Image
+            src={MediaPlayer}
+            alt="Media Player"
+            className="object-cover"
+          />
+        </div>
+      </section>
+      <h1>Another section</h1>
+    </main>
   );
 }

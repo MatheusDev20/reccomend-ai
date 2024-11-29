@@ -42,9 +42,8 @@ const ThemeProvider = ({ children }: Props) => {
 const useTheme = (): ContextProps => {
   const context = useContext(ThemeContext);
 
-  if (context === null) {
+  if (context === null)
     throw new Error('useTheme must be used within a Provider');
-  }
 
   return context;
 };

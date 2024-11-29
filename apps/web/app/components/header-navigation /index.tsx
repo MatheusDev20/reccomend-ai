@@ -12,21 +12,21 @@ export const HeaderNavigation = ({ isToggled }: Props) => {
       <ul className={clsx('md:flex gap-3 md:gap-12 p-4 w-full md:w-auto')}>
         <li>
           <Link href="/recomendations/features">
-            <p className="font-semibold text-purple-500 hover:text-purple-700 transition-transform transform hover:scale-105 hover:underline">
+            <p className="font-semibold text-[#6C63FF] hover:text-purple-700 transition-transform transform hover:scale-105 hover:underline">
               Features
             </p>
           </Link>
         </li>
         <li>
           <Link href="/recomendations/about">
-            <p className="font-semibold text-purple-500 hover:text-purple-700 transition-transform transform hover:scale-105 hover:underline">
+            <p className="font-semibold text-[#6C63FF] hover:text-purple-700 transition-transform transform hover:scale-105 hover:underline">
               Sobre
             </p>
           </Link>
         </li>
         <li>
           <Link href="/recomendations/motivation">
-            <p className="font-semibold text-purple-500 hover:text-purple-700 transition-transform transform hover:scale-105 hover:underline">
+            <p className="font-semibold text-[#6C63FF] hover:text-purple-700 transition-transform transform hover:scale-105 hover:underline">
               Motivação
             </p>
           </Link>

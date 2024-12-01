@@ -21,21 +21,21 @@ export const Header = ({
   return (
     <header
       className={clsx(
-        'flex flex-wrap p-4flex md:flex py-3 px-3 pl-6 pr-4 md:p border border-b-[1px] border-l-0 border-r-0 border-t-0 items-center w-full min-h-[50px] justify-between',
+        'flex flex-wrap p-4 md:flex py-3 px-3 pl-6 pr-4 md:p border border-b-[1px] border-l-0 border-r-0 border-t-0 items-center w-full min-h-[50px] justify-between',
         // { flex: !isToggled, 'flex-col': isToggled },
       )}
       // className="flex py-3 px-3 pl-6 pr-4 md:p border border-b-[1px] border-l-0 border-r-0 border-t-0 items-center w-full min-h-[50px] justify-between"
     >
       <div>{homeLink}</div>
       <div>{navigation}</div>
-      <aside className="flex items-center gap-1 md:gap-3">
+      <aside className="flex items-center gap-5 md:gap-3">
         <GithubIcon theme={theme} />
         {/* <ThemeSwitch currentTheme={theme} toggle={toogleTheme} /> */}
         <div className="md:hidden">
           <button
             onClick={toggleNav}
             type="button"
-            className=" cursor-pointer navbar-burger flex items-center text-blue-600 p-3"
+            className="cursor-pointer navbar-burger flex items-center text-blue-600 p-3"
           >
             <svg
               className="block h-4 w-4 fill-current"

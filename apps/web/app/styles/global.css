@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .debug {
+    border: solid 1px red;
+  }
+}
+
+
 body {
   margin: 0;
   padding: 0;

@@ -9,14 +9,12 @@
     "dist"
   ],
   "exports": {
-    "./index.css": "./dist/index.css",
-    "./header": "./src/header.tsx"
+    "./header": "./src/header.tsx",
+    "./button": "./src/button.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
     "generate:component": "turbo gen react-component",
-    "build": "tailwindcss -i ./src/index.css -o ./dist/index.css",
-    "dev": "tailwindcss -i ./src/index.css -o ./dist/index.css --watch",
     "type-check": "tsc --noEmit"
   },
   "devDependencies": {

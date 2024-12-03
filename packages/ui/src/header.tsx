@@ -20,10 +20,9 @@ export const Header = ({
 }: HeaderProps) => {
   return (
     <header
-      className={clsx(
-        'flex flex-wrap p-4 md:flex py-3 px-3 pl-6 pr-4 md:p border border-b-[1px] border-l-0 border-r-0 border-t-0 items-center w-full min-h-[50px] justify-between',
-        // { flex: !isToggled, 'flex-col': isToggled },
-      )}
+      className="flex flex-wrap p-4 md:flex py-3 px-3 pl-6 pr-4 border border-b-[1px] border-l-0 border-r-0 border-t-0 items-center w-full min-h-[50px] justify-between"
+      // { flex: !isToggled, 'flex-col': isToggled },
+
       // className="flex py-3 px-3 pl-6 pr-4 md:p border border-b-[1px] border-l-0 border-r-0 border-t-0 items-center w-full min-h-[50px] justify-between"
     >
       <div>{homeLink}</div>
@@ -31,7 +30,7 @@ export const Header = ({
       <aside className="flex items-center gap-5 md:gap-3">
         <GithubIcon theme={theme} />
         {/* <ThemeSwitch currentTheme={theme} toggle={toogleTheme} /> */}
-        <div className="md:hidden">
+        <div className="flex md:hidden">
           <button
             onClick={toggleNav}
             type="button"

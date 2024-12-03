@@ -1,5 +1,4 @@
 'use client';
-import MediaPlayer from '@/public/media-player-p.png';
 import Image from 'next/image';
 import { ForwardArrow } from '../icons/forward-arrow';
 import { MotivationCard } from '../components/motivation-card';
@@ -7,6 +6,7 @@ import { DatabaseIcon } from '../icons/database-icon';
 import { SearchPlus } from '../icons/search-plus';
 import { CameraIcon } from '../icons/camera-icon';
 import Link from 'next/link';
+import SideImage from '@/public/media-player-p.png';
 
 export default function Page() {
   return (
@@ -36,11 +36,7 @@ export default function Page() {
 
         {/* Right Column */}
         <div className="md:w-1/2 h-full bg-center hidden md:flex">
-          <Image
-            src={MediaPlayer}
-            alt="Media Player"
-            className="object-cover"
-          />
+          <Image src={SideImage} alt="Media Player" className="object-cover" />
         </div>
       </section>
       <section

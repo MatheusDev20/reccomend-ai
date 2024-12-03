@@ -1,4 +1,4 @@
-import { LOCAL_STORAGE_KEY } from './constants';
+export const LOCAL_STORAGE_KEY = 'recommend-ai';
 
 export const setLocalStorage = (value: string): void => {
   window.localStorage.setItem(`${LOCAL_STORAGE_KEY}`, value);

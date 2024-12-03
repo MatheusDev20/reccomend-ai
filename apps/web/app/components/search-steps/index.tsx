@@ -1,21 +1,23 @@
 'use client';
 
-import { BackArrow } from '@/app/icons/back-arrow';
-import { NextArrow } from '@/app/icons/next-arrow';
 import { useState } from 'react';
-import { FirstStep } from './first-step';
+import { FirstStep, Mood } from './first-step';
 import { SecondStep } from './gender-step';
 import { ThirdsStep } from './preferences-step';
-import { SearchIcon } from '@/app/icons/search';
-import { Button } from '@repo/ui/button';
+import { STEPS } from '@/app/utils/constants';
+import clsx from 'clsx';
+import { NavigationsButtons } from './navigations-buttons';
+import { useStepperForm } from '@/app/context/stepper-context';
 
 const TOTAL_STEPS = 3;
 type Props = {};
 
 export const SearchSteps = ({}: Props) => {
   const [currentStep, setCurrentStep] = useState(1);
+  const { data } = useStepperForm();
 
   const handleNextStep = () => {
+    console.log('Setando os dados do step', currentStep);
     setCurrentStep(currentStep + 1);
   };
 
@@ -23,55 +25,79 @@ export const SearchSteps = ({}: Props) => {
     setCurrentStep(currentStep - 1);
   };
 
-  const getStep = (step: number) => {
+  const getStep = (
+    step: number,
+  ): { component: React.ReactNode, validationEval: any } => {
     switch (step) {
       case 1:
-        return <FirstStep />;
+        return {
+          component: <FirstStep />,
+          // Eval to false if the constraint do not met
+          validationEval: (moods: Mood[]) => moods.length !== 0,
+        };
 
       case 2:
-        return <SecondStep />;
+        return {
+          component: <SecondStep />,
+          validationEval: () => false,
+        };
 
       case 3:
-        return <ThirdsStep />;
+        return {
+          component: <ThirdsStep />,
+          validationEval: () => false,
+        };
 
       default:
-        return <FirstStep />;
+        return {
+          component: <FirstStep />,
+          validationEval: () => false,
+        };
     }
   };
 
+  const { component, validationEval } = getStep(currentStep);
   return (
-    <div className="debug flex flex-col p-3 gap-4 max-w-full">
-      <Button />
-      {getStep(currentStep)}
-      <footer className="flex debug flex-col md:flex-row gap-6 items-center justify-center w-full">
-        {currentStep !== 1 && (
-          <button
-            onClick={handlePreviousStep}
-            className="mt-3 w-[100%] p-4 hover:bg-[#7C73FF] hover:scale-105 delay-150 ease-in-out transition md:p-0 md:w-48 h-10 bg-primary text-white items-center flex justify-center gap-3 rounded-md font-semibold text-sm md:text-md"
-          >
-            Anterior
-            <BackArrow tClass="text-white h-4 w-4" />
-          </button>
-        )}
+    <div className="flex flex-col gap-4 max-w-full">
+      <div className="flex items-start pt-0 pb-0 pl-12 pr-12 justify-between">
+        {/* Stepper */}
+        <div className="h-full pl-6 pr-6">
+          <ul className="steps steps-vertical">
+            {STEPS.map((step) => {
+              return (
+                <li
+                  key={step.label}
+                  data-content={step.icon}
+                  className={clsx(
+                    'step',
+                    {
+                      'step-primary':
+                        step.id < currentStep || step.id === currentStep,
+                    },
+                    { 'step-done': step.id < currentStep },
+                  )}
+                >
+                  <p>{step.label}</p>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
 
-        {currentStep !== TOTAL_STEPS ? (
-          <button
-            onClick={handleNextStep}
-            className="mt-3 w-[100%] p-4 hover:bg-[#7C73FF] hover:scale-105 delay-150 ease-in-out transition md:p-0 md:w-56 h-10 bg-primary text-white items-center flex justify-center gap-3 rounded-md font-semibold text-sm md:text-md"
-          >
-            Gerar Recomendações
-            <SearchIcon tClass="text-white h-4 w-4" />
-          </button>
-        ) : (
-          <button
-            onClick={handleNextStep}
-            className="mt-3 w-[100%] p-4 hover:bg-[#7C73FF] hover:scale-105 delay-150 ease-in-out transition md:p-0 md:w-48 h-10 bg-primary text-white items-center flex justify-center gap-3 rounded-md font-semibold text-sm md:text-md"
-          >
-            Proximo
-            <NextArrow tClass="text-white h-4 w-4" />
-          </button>
-        )}
-      </footer>
+        {/* Content Area with Min Height */}
+        <div className="justify-center flex-col flex-1 pl-6 pr-6 flex items-center">
+          {component}
+          <NavigationsButtons
+            currentStep={currentStep}
+            prev={handlePreviousStep}
+            // Disable always eval to true if validationEval eval to false (Step do not met conditions )
+            disableNext={!validationEval(data.mood)}
+            disablePrev={false}
+            next={handleNextStep}
+            totalSteps={TOTAL_STEPS}
+          />
+        </div>
+      </div>
     </div>
   );
 };

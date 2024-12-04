@@ -17,7 +17,6 @@ export const SearchSteps = ({}: Props) => {
   const { data } = useStepperForm();
 
   const handleNextStep = () => {
-    console.log('Setando os dados do step', currentStep);
     setCurrentStep(currentStep + 1);
   };
 
@@ -57,6 +56,7 @@ export const SearchSteps = ({}: Props) => {
   };
 
   const { component, validationEval } = getStep(currentStep);
+
   return (
     <div className="flex flex-col gap-4 max-w-full">
       <div className="flex items-start pt-0 pb-0 pl-12 pr-12 justify-between">

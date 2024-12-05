@@ -1,5 +1,3 @@
-import { SmileFace } from '../icons/smile-face';
-
 export const MOODS = [
   { label: 'Animado', emoji: '🎉', id: 1 },
   { label: 'Emocionado', emoji: '😢', id: 2 },
@@ -22,7 +20,14 @@ export const STEPS = [
   },
   {
     id: 3,
-    label: 'Filmes preferidos',
-    icon: '🎦',
+    label: 'Streaming disponíveis',
+    icon: '📺',
   },
+  // {
+  //   id: 3,
+  //   label: 'Filmes preferidos',
+  //   icon: '🎦',
+  // },
 ];
+
+export const TOTAL_STEPS = STEPS.length;

@@ -6,10 +6,19 @@ import { CacheModule } from '@nestjs/cache-manager';
 import { TMDBModule } from './modules/tmdb/tmdb.module';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { PostgresDBConfigService } from './config/db';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({ isGlobal: true }),
+    TypeOrmModule.forRootAsync({
+      useClass: PostgresDBConfigService,
+      inject: [PostgresDBConfigService],
+    }),
+    PromptModule,
+    SpotfyModule,
+    TMDBModule,
     ThrottlerModule.forRoot([
       {
         ttl: 60000,
@@ -17,9 +26,6 @@ import { APP_GUARD } from '@nestjs/core';
       },
     ]),
     CacheModule.register(),
-    PromptModule,
-    SpotfyModule,
-    TMDBModule,
   ],
   providers: [
     {

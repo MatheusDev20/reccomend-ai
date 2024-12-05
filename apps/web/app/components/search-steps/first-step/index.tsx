@@ -33,11 +33,11 @@ export const FirstStep = () => {
 
   return (
     <div className="flex flex-col items-center gap-4">
-      <h2 className="text-lg font-bold">Como está se sentindo hoje?</h2>
+      <h2 className="text-lg font-bold">
+        Que tipo de sentimento o filme de hoje deve te despertar?
+      </h2>
       <p className="text-gray-600 text-sm">
-        Selecione até{' '}
-        <span className="text-primary font-semibold">3 sentimentos</span> que te
-        definem hoje.
+        <span className="text-primary font-semibold">Selecione até 3</span>
       </p>
       <div className="grid grid-cols-3 gap-4 mt-6">
         {MOODS.map((mood) => {

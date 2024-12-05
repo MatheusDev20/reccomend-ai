@@ -7,9 +7,11 @@ import {
   useState,
 } from 'react';
 import { Mood } from '../components/search-steps/first-step';
+import { Genre } from '../@types';
 
 type StepperAggregated = {
   mood: Mood[],
+  genres: Genre[],
 };
 
 type ContextProps = {
@@ -24,6 +26,7 @@ const { Provider } = StepperContext;
 const StepperDataProvider = ({ children }: any) => {
   const [data, setData] = useState<StepperAggregated>({
     mood: [],
+    genres: [],
   });
 
   const contextValue = useMemo(

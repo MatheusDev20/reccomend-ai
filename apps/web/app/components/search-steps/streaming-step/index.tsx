@@ -1,16 +1,17 @@
-/* eslint-disable prettier/prettier */
 'use client';
 import { useEffect, useState } from 'react';
 import { useStreaming } from '@/app/api/streaming.query';
 import { StreamingService } from '@/app/@types';
+import Draggable from 'react-draggable';
 
 export const ThirdsStep = () => {
   const [droppedServices, setDroppedServices] = useState<StreamingService[]>(
     [],
   );
-  const [availableServices, setAvailableServices] = useState<StreamingService[]>(
-    [],
-  );
+  const [availableServices, setAvailableServices] = useState<
+    // eslint-disable-next-line prettier/prettier
+    StreamingService[]
+  >([]);
 
   const { data: streamingServices, isLoading, error } = useStreaming();
 
@@ -19,7 +20,7 @@ export const ThirdsStep = () => {
     const droppedId = Number(e.dataTransfer.getData('streamingId'));
 
     const droppedService = availableServices.find(
-      (service) => service.id === droppedId
+      (service) => service.id === droppedId,
     );
 
     if (droppedService) {
@@ -36,11 +37,8 @@ export const ThirdsStep = () => {
 
   const handleRemoveDropped = (id: number) => {
     const removedService = droppedServices.find((service) => service.id === id);
-
     if (removedService) {
-      setDroppedServices((prev) =>
-        prev.filter((service) => service.id !== id),
-      );
+      setDroppedServices((prev) => prev.filter((service) => service.id !== id));
       setAvailableServices((prev) => [...prev, removedService]);
     }
   };
@@ -49,6 +47,11 @@ export const ThirdsStep = () => {
     if (streamingServices) setAvailableServices(streamingServices);
   }, [streamingServices]);
 
+  const getBgStyles = (bgPath: string) => ({
+    backgroundImage: `url(${bgPath})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  });
   return (
     <div className="flex w-full gap-4  h-full flex-row">
       {/* Available Streaming Services */}
@@ -56,17 +59,16 @@ export const ThirdsStep = () => {
         {availableServices.map((streaming) => {
           const bgPath = `/streamings/${streaming.name.toLowerCase()}-bg.jpg`;
           return (
-            <div
-              draggable="true"
-              onDragStart={(e) => handleDragStart(e, streaming.id)}
-              className="w-full max-w-[150px] h-[40px] cursor-grab rounded-md border-2 border-transparent hover:border-primary transition duration-300"
-              style={{
-                backgroundImage: `url(${bgPath})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              }}
-              key={streaming.id}
-            />
+            <Draggable
+              scale={3}
+              onStart={(e) => handleDragStart(e, streaming.id)}
+            >
+              <div
+                className="w-full max-w-[150px] h-[40px] cursor-grab rounded-md border-2 border-transparent hover:border-primary transition duration-300"
+                style={getBgStyles(bgPath)}
+                key={streaming.id}
+              />
+            </Draggable>
           );
         })}
       </div>
@@ -83,18 +85,14 @@ export const ThirdsStep = () => {
             return (
               <div
                 className="relative w-full max-w-[150px] h-[40px] rounded-md border-2 border-primary"
-                style={{
-                  backgroundImage: `url(${bgPath})`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                }}
+                style={getBgStyles(bgPath)}
                 key={streaming.id}
               >
                 <button
                   onClick={() => handleRemoveDropped(streaming.id)}
                   className="absolute top-[-10px] right-[-10px] bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center text-sm hover:bg-red-700 transition duration-300"
                 >
-                ×
+                  ×
                 </button>
               </div>
             );

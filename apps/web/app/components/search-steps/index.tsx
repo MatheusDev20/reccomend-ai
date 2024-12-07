@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { FirstStep, Mood } from './first-step';
 import { SecondStep } from './gender-step';
-import { ThirdsStep } from './preferences-step';
+import { ThirdsStep } from './streaming-step';
 import { STEPS, TOTAL_STEPS } from '@/app/utils/constants';
 import clsx from 'clsx';
 import { NavigationsButtons } from './navigations-buttons';
@@ -13,7 +13,7 @@ import { Genre } from '@/app/@types';
 type Props = {};
 
 export const SearchSteps = ({}: Props) => {
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(3);
   const { data } = useStepperForm();
 
   const handleNextStep = () => {

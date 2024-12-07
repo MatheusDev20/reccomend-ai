@@ -27,11 +27,11 @@ import { PostgresDBConfigService } from './config/db';
     ]),
     CacheModule.register(),
   ],
-  providers: [
-    {
-      provide: APP_GUARD,
-      useClass: ThrottlerGuard,
-    },
-  ],
+  // providers: [
+  //   {
+  //     provide: APP_GUARD,
+  //     useClass: ThrottlerGuard,
+  //   },
+  // ],
 })
 export class AppModule {}

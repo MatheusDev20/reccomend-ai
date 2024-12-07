@@ -1,7 +1,7 @@
-import { MovieDTO } from './../../@types/index';
+import { MovieDTO } from '../../../@types/index';
 import { Injectable } from '@nestjs/common';
-import { FireExternalRequest } from '../http/fire-request';
-import { movieDetailsParser } from './outputs';
+import { FireExternalRequest } from '../../http/fire-request';
+import { movieDetailsParser } from '../outputs';
 
 type Input = {
   movieName: string;

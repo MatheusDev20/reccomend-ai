@@ -6,3 +6,15 @@ export class GetMovieDetailsDTO {
   @MaxLength(40)
   movieName: string;
 }
+
+export class PostStreamingDTO {
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(40)
+  name: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(40)
+  url: string;
+}

@@ -32,8 +32,8 @@ export const FirstStep = () => {
   const selectedMoods = data.mood || [];
 
   return (
-    <div className="flex flex-col items-center gap-4">
-      <h2 className="text-lg font-bold">
+    <div className="flex flex-col w-full items-center gap-4">
+      <h2 className="text-sm md:text-lg font-bold">
         Que tipo de sentimento o filme de hoje deve te despertar?
       </h2>
       <p className="text-gray-600 text-sm">

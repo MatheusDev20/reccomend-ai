@@ -20,7 +20,13 @@ export const NavigationsButtons = ({
   totalSteps,
 }: Props) => {
   return (
-    <footer className="flex mt-6 flex-col md:flex-row gap-6 items-center justify-center w-full">
+    <footer
+      className={clsx(
+        'flex mt-6 flex-col md:flex-row gap-6 items-center w-full',
+        currentStep !== 3 ? 'justify-center' : 'justify-center pl-0 md:pl-60',
+      )}
+      // className="flex mt-6 debug flex-col md:flex-row gap-6 items-center justify-center w-full"
+    >
       {/* Previous Button */}
       {currentStep !== 1 && (
         <button

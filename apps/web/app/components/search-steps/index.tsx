@@ -13,7 +13,7 @@ import { Genre } from '@/app/@types';
 type Props = {};
 
 export const SearchSteps = ({}: Props) => {
-  const [currentStep, setCurrentStep] = useState(3);
+  const [currentStep, setCurrentStep] = useState(1);
   const { data } = useStepperForm();
 
   const handleNextStep = () => {
@@ -66,47 +66,42 @@ export const SearchSteps = ({}: Props) => {
     }
   };
   return (
-    <div className="flex flex-col gap-4 max-w-full">
-      <div className="flex pt-0 pb-0 pl-12 pr-12 justify-between">
-        {/* Stepper with Fixed Height */}
-        <div className="h-full pl-6 pr-6 self-start min-full">
-          <ul className="steps steps-vertical h-full">
-            {STEPS.map((step) => {
-              return (
-                <li
-                  key={step.label}
-                  data-content={step.icon}
-                  className={clsx(
-                    'step',
-                    {
-                      'step-primary':
-                        step.id < currentStep || step.id === currentStep,
-                    },
-                    { 'step-done': step.id < currentStep },
-                  )}
-                >
-                  <p>{step.label}</p>
-                </li>
-              );
-            })}
+    <div className="flex flex-col md:flex-row gap-4 min-h-screen">
+      {/* Stepper Section */}
+      <div className="flex flex-col md:flex-row gap-6 pt-6 md:pt-0 pb-0 md:pl-12 md:pr-12 justify-between">
+        <div className="h-full pl-6 pr-6 self-center">
+          <ul className="steps steps-horizontal md:steps-vertical p-3 md:p-0 md:min-h-[300px]">
+            {STEPS.map((step) => (
+              <li
+                key={step.label}
+                data-content={step.icon}
+                className={clsx(
+                  'step',
+                  {
+                    'step-primary':
+                      step.id < currentStep || step.id === currentStep,
+                  },
+                  { 'step-done': step.id < currentStep },
+                )}
+              >
+                <p>{step.label}</p>
+              </li>
+            ))}
           </ul>
         </div>
+      </div>
 
-        {/* Content Area with Fixed Min Height */}
-        <div
-          className="justify-center flex-col flex-1 pl-6 pr-6 flex items-center"
-          style={{ minHeight: '500px' }} // Ensure consistent height
-        >
-          {component}
-          <NavigationsButtons
-            currentStep={currentStep}
-            prev={handlePreviousStep}
-            disableNext={!genericValidator(currentStep)}
-            disablePrev={false}
-            next={handleNextStep}
-            totalSteps={TOTAL_STEPS}
-          />
-        </div>
+      {/* Content Area */}
+      <div className="flex-1 flex flex-col items-center">
+        {component}
+        <NavigationsButtons
+          currentStep={currentStep}
+          prev={handlePreviousStep}
+          disableNext={!genericValidator(currentStep)}
+          disablePrev={false}
+          next={handleNextStep}
+          totalSteps={TOTAL_STEPS}
+        />
       </div>
     </div>
   );

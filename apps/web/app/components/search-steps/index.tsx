@@ -14,6 +14,8 @@ type Props = {};
 
 export const SearchSteps = ({}: Props) => {
   const [currentStep, setCurrentStep] = useState(1);
+  const [searching, setSearching] = useState(false);
+
   const { data } = useStepperForm();
 
   const handleNextStep = () => {
@@ -63,46 +65,58 @@ export const SearchSteps = ({}: Props) => {
         return validationEval(data.mood);
       case 2:
         return validationEval(data.genres);
+      case 3:
+        return true;
     }
   };
+
   return (
-    <div className="flex flex-col md:flex-row gap-4 min-h-screen">
-      {/* Stepper Section */}
-      <div className="flex flex-col md:flex-row gap-6 pt-6 md:pt-0 pb-0 md:pl-12 md:pr-12 justify-between">
-        <div className="h-full pl-6 pr-6 self-center">
-          <ul className="steps steps-horizontal md:steps-vertical p-3 md:p-0 md:min-h-[300px]">
-            {STEPS.map((step) => (
-              <li
-                key={step.label}
-                data-content={step.icon}
-                className={clsx(
-                  'step',
-                  {
-                    'step-primary':
-                      step.id < currentStep || step.id === currentStep,
-                  },
-                  { 'step-done': step.id < currentStep },
-                )}
-              >
-                <p>{step.label}</p>
-              </li>
-            ))}
-          </ul>
+    <>
+      {/* Searching Overlay */}
+      {searching && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="w-12 h-12 border-4 border-t-transparent border-white rounded-full animate-spin"></div>
+        </div>
+      )}
+      <div className="flex flex-col md:flex-row gap-4 min-h-screen">
+        {/* Stepper Section */}
+        <div className="flex flex-col md:flex-row gap-6 pt-6 md:pt-0 pb-0 md:pl-12 md:pr-12 justify-between">
+          <div className="h-full pl-6 pr-6 self-center">
+            <ul className="steps steps-horizontal md:steps-vertical p-3 md:p-0 md:min-h-[300px]">
+              {STEPS.map((step) => (
+                <li
+                  key={step.label}
+                  data-content={step.icon}
+                  className={clsx(
+                    'step',
+                    {
+                      'step-primary':
+                        step.id < currentStep || step.id === currentStep,
+                    },
+                    { 'step-done': step.id < currentStep },
+                  )}
+                >
+                  <p>{step.label}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Content Area */}
+        <div className="flex-1 flex flex-col items-center">
+          {component}
+          <NavigationsButtons
+            currentStep={currentStep}
+            prev={handlePreviousStep}
+            disableNext={!genericValidator(currentStep)}
+            disablePrev={false}
+            next={handleNextStep}
+            totalSteps={TOTAL_STEPS}
+            setSearching={setSearching}
+          />
         </div>
       </div>
-
-      {/* Content Area */}
-      <div className="flex-1 flex flex-col items-center">
-        {component}
-        <NavigationsButtons
-          currentStep={currentStep}
-          prev={handlePreviousStep}
-          disableNext={!genericValidator(currentStep)}
-          disablePrev={false}
-          next={handleNextStep}
-          totalSteps={TOTAL_STEPS}
-        />
-      </div>
-    </div>
+    </>
   );
 };

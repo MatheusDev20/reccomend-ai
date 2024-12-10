@@ -2,11 +2,9 @@
 import { useEffect, useState } from 'react';
 import { useStreaming } from '@/app/api/streaming.query';
 import { StreamingService } from '@/app/@types';
+import { useStepperForm } from '@/app/context/stepper-context';
 
 export const ThirdsStep = () => {
-  const [droppedServices, setDroppedServices] = useState<StreamingService[]>(
-    [],
-  );
   const [availableServices, setAvailableServices] = useState<
     // eslint-disable-next-line prettier/prettier
     StreamingService[]
@@ -14,6 +12,7 @@ export const ThirdsStep = () => {
   const [isDraggingOver, setIsDraggingOver] = useState(false);
 
   const { data: streamingServices, isLoading, error } = useStreaming();
+  const { data, setData } = useStepperForm();
 
   const handleDrop = (e: any) => {
     e.preventDefault();
@@ -29,13 +28,21 @@ export const ThirdsStep = () => {
       setAvailableServices((prev) =>
         prev.filter((service) => service.id !== droppedId),
       );
-      setDroppedServices((prev) => [...prev, droppedService]);
+
+      setData((prev) => ({
+        ...prev,
+        streamings: [...prev.streamings, droppedService],
+      }));
     }
   };
 
   const handleDragStart = (e: any, id: number) => {
     e.dataTransfer.setData('streamingId', id);
   };
+
+  // const handleEmptyServices = () => {
+  //   setData((prev) => ({ ...prev, streamings: [] }));
+  // };
 
   const handleDragOver = (e: any) => {
     e.preventDefault();
@@ -47,10 +54,13 @@ export const ThirdsStep = () => {
   };
 
   const handleRemoveDropped = (id: number) => {
-    const removedService = droppedServices.find((service) => service.id === id);
+    const removedService = data.streamings.find((service) => service.id === id);
 
     if (removedService) {
-      setDroppedServices((prev) => prev.filter((service) => service.id !== id));
+      setData((prev) => ({
+        ...prev,
+        streamings: prev.streamings.filter((service) => service.id !== id),
+      }));
       setAvailableServices((prev) => [...prev, removedService]);
     }
   };
@@ -90,8 +100,8 @@ export const ThirdsStep = () => {
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
       >
-        {droppedServices.length > 0 ? (
-          droppedServices.map((streaming) => {
+        {data.streamings.length > 0 ? (
+          data.streamings.map((streaming) => {
             const bgPath = `/streamings/${streaming.name.toLowerCase()}-bg.jpg`;
             return (
               <div
@@ -114,13 +124,20 @@ export const ThirdsStep = () => {
             );
           })
         ) : (
-          <div className="flex flex-col gap-8 m-auto">
+          <div className="flex flex-col gap-8 items-center m-auto">
             <span className="text-gray-500 font-semibold">
               Arraste pra cá os serviços de streaming que você possui
             </span>
-            <button className="mt-3 w-[100%] p-4 hover:bg-[#7C73FF] hover:scale-100 delay-150 ease-in-out transition md:p-0 md:w-[50%] md:m-auto h-10 bg-primary text-white items-center flex justify-center gap-3 rounded-md font-semibold text-sm md:text-md>">
+            <span className="text-red-700">
+              Deixe vazio se não possuir nenhum
+            </span>
+
+            {/* <button
+              onClick={handleEmptyServices}
+              className="mt-3 w-[100%] p-4 hover:bg-[#7C73FF] hover:scale-100 delay-150 ease-in-out transition md:p-0 md:w-[50%] md:m-auto h-10 bg-primary text-white items-center flex justify-center gap-3 rounded-md font-semibold text-sm md:text-md>"
+            >
               <span>Não possuo serviços</span>
-            </button>
+            </button> */}
           </div>
         )}
       </div>

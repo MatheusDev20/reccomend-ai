@@ -9,14 +9,15 @@ import clsx from 'clsx';
 import { NavigationsButtons } from './navigations-buttons';
 import { useStepperForm } from '@/app/context/stepper-context';
 import { Genre } from '@/app/@types';
+import { usePrompt } from '@/app/api/prompt.query';
 
 type Props = {};
 
 export const SearchSteps = ({}: Props) => {
   const [currentStep, setCurrentStep] = useState(1);
-  const [searching, setSearching] = useState(false);
 
   const { data } = useStepperForm();
+  const prompAction = usePrompt({ ...data, type: 'movies' });
 
   const handleNextStep = () => {
     setCurrentStep(currentStep + 1);
@@ -73,12 +74,12 @@ export const SearchSteps = ({}: Props) => {
   return (
     <>
       {/* Searching Overlay */}
-      {searching && (
+      {prompAction.isLoading && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="w-12 h-12 border-4 border-t-transparent border-white rounded-full animate-spin"></div>
         </div>
       )}
-      <div className="flex flex-col md:flex-row gap-4 min-h-screen">
+      <div className="flex flex-col md:flex-row gap-4 min-h-screen lg:pl-24 lg:pr-14">
         {/* Stepper Section */}
         <div className="flex flex-col md:flex-row gap-6 pt-6 md:pt-0 pb-0 md:pl-12 md:pr-12 justify-between">
           <div className="h-full pl-6 pr-6 self-center">
@@ -113,7 +114,7 @@ export const SearchSteps = ({}: Props) => {
             disablePrev={false}
             next={handleNextStep}
             totalSteps={TOTAL_STEPS}
-            setSearching={setSearching}
+            hookAction={prompAction}
           />
         </div>
       </div>

@@ -4,18 +4,16 @@ import {
   IsNotEmpty,
   IsNotEmptyObject,
   IsNumber,
-  isNumber,
   IsString,
   MaxLength,
   ValidateNested,
 } from 'class-validator';
-import { Streaming } from '../tmdb/entities/streaming.entity';
 import { Type } from 'class-transformer';
 
 export class GenreDTO {
   @IsNotEmpty()
-  @IsNumber()
-  id: number;
+  @IsString()
+  id: string;
 
   @IsNotEmpty()
   @MaxLength(20)

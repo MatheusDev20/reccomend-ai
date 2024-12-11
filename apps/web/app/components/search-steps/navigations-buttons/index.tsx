@@ -1,4 +1,4 @@
-import { useStepperForm } from '@/app/context/stepper-context';
+import { usePrompt } from '@/app/api/prompt.query';
 import { BackArrow } from '@/app/icons/back-arrow';
 import { NextArrow } from '@/app/icons/next-arrow';
 import { SearchIcon } from '@/app/icons/search';
@@ -11,7 +11,7 @@ type Props = {
   disablePrev: any,
   currentStep: number,
   totalSteps: number,
-  setSearching: (b: boolean) => void,
+  hookAction: ReturnType<typeof usePrompt>,
 };
 
 export const NavigationsButtons = ({
@@ -20,13 +20,9 @@ export const NavigationsButtons = ({
   next,
   disableNext,
   totalSteps,
-  setSearching,
+  hookAction,
 }: Props) => {
-  const { data } = useStepperForm();
-  const handleSearch = () => {
-    setSearching(true);
-    console.log(data);
-  };
+  const handleSearch = async () => await hookAction.refetch();
   return (
     <footer
       className={clsx(

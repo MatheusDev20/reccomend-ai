@@ -128,7 +128,7 @@ export const ThirdsStep = () => {
             <span className="text-gray-500 font-semibold">
               Arraste pra cá os serviços de streaming que você possui
             </span>
-            <span className="text-red-700">
+            <span className="text-red-400">
               Deixe vazio se não possuir nenhum
             </span>
 

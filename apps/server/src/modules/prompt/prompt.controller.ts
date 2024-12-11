@@ -2,8 +2,9 @@ import { Body, Controller, Post } from '@nestjs/common';
 import { PromptInputDTO } from './inputs';
 import { PromptProvider } from './prompt.provider';
 import { ok } from 'src/shared/http/common-responses';
-import { CompletionsCategories, RecomendationCompletion } from 'src/@types';
+import { CompletionsCategories } from 'src/@types';
 import { TMDBProvider } from '../tmdb/providers/tmdb.provider';
+import { Throttle } from '@nestjs/throttler';
 
 @Controller('prompt')
 export class PromptController {
@@ -12,6 +13,7 @@ export class PromptController {
     private TMDBProvider: TMDBProvider,
   ) {}
 
+  @Throttle({ default: { limit: 10, ttl: 86_400_000 } })
   @Post()
   async handleCompletion(@Body() data: PromptInputDTO) {
     const { content, type } = data;

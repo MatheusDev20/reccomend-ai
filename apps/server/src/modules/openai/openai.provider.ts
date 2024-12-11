@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import OpenAI from 'openai';
 import { ModelBehaviour } from './assistants/provider';
 import { zodResponseFormat } from 'openai/helpers/zod';
@@ -10,6 +10,11 @@ import {
 import { StructuredData } from './schemas';
 import { CustomLogger } from '../logger/logger.provider';
 import { assistantResponsibleFor } from './assistants/models';
+export type CompleteInput = {
+  content: any;
+  formatter: (content: any) => string;
+  recomendationType: string;
+};
 
 @Injectable()
 class OpenAIProvider {
@@ -24,13 +29,16 @@ class OpenAIProvider {
     this.model = process.env.MODEL;
   }
 
-  async complete<T>(content: string, recomendationType: string): Promise<T> {
-    const messages = await this.formatMessages(content, recomendationType);
+  async complete<T>(data: CompleteInput): Promise<T> {
+    const messages = await this.formatMessages(data);
 
     const completion = await this.client.chat.completions.create({
       model: this.model,
       messages,
-      response_format: zodResponseFormat(StructuredData, recomendationType),
+      response_format: zodResponseFormat(
+        StructuredData,
+        data.recomendationType,
+      ),
     });
 
     const [response] = completion.choices;
@@ -41,19 +49,18 @@ class OpenAIProvider {
   }
 
   private formatMessages = async (
-    content: string,
-    recomendationType: string,
+    data: CompleteInput,
   ): Promise<ChatCompletionMessageParam[]> => {
     const behaviour = await this.assistant.selectAssistant(
-      assistantResponsibleFor[recomendationType],
-      recomendationType,
+      assistantResponsibleFor[data.recomendationType],
+      data.recomendationType,
     );
 
-    if (!content.includes(recomendationType)) {
-      throw new BadRequestException(
-        'Prompt Content must contain the word of the recomendation type',
-      );
-    }
+    // if (!content.includes(recomendationType)) {
+    //   throw new BadRequestException(
+    //     'Prompt Content must contain the word of the recomendation type',
+    //   );
+    // }
 
     const actSystem = {
       role: 'system',
@@ -64,10 +71,14 @@ class OpenAIProvider {
         },
       ],
     } as ChatCompletionSystemMessageParam;
+    const { content, formatter } = data;
 
     return [
       actSystem,
-      { role: 'user', content: [{ type: 'text', text: content }] },
+      {
+        role: 'user',
+        content: [{ type: 'text', text: formatter(content) }],
+      },
     ];
   };
 }

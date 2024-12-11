@@ -27,8 +27,10 @@ export type CompletionsCategories = {
   movies: MovieCompletion;
 };
 
-export type RecomendationCompletion<T> = {
-  recomendations: T[];
+export type RecomendationCompletion<K extends keyof CompletionsCategories> = {
+  completions: {
+    [key in K]: CompletionsCategories[key][];
+  };
 };
 
 export type PromptInput = {
@@ -61,6 +63,12 @@ export type AlbumImage = {
   url: string;
   width: number;
 };
+export type StreamingOutput = {
+  logo_path: string;
+  provider_id: number;
+  provider_name: string;
+  display_priority: number;
+};
 
 export type MovieDTO = {
   adult: boolean;
@@ -77,6 +85,7 @@ export type MovieDTO = {
   video: boolean;
   vote_average: number;
   vote_count: number;
+  streamings: StreamingOutput[];
 };
 
 export type SongDetailsDTO = {

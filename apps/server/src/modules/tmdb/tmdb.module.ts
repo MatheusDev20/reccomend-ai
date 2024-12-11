@@ -33,6 +33,6 @@ import { PostgresImplementation } from './db/postgres';
       useClass: PostgresImplementation,
     },
   ],
-  exports: [TmdbAuthProvider],
+  exports: [TmdbAuthProvider, TMDBProvider],
 })
 export class TMDBModule {}

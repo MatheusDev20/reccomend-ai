@@ -3,9 +3,10 @@ import { tmdbConfig } from 'src/config/tmdb';
 
 export const movieDetailsParser = (data: any): MovieDTO => {
   const { results } = data;
+  if (!results) return null;
   if (results.length === 0) return null;
   const [movie] = results;
-  const { backdrop_path, poster_path, ...rest } = movie;
+  const { backdrop_path, poster_path, genre_ids, ...rest } = movie;
 
   return {
     ...rest,

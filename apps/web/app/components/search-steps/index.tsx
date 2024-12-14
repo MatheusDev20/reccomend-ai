@@ -11,10 +11,12 @@ import { useStepperForm } from '@/app/context/stepper-context';
 import { Genre } from '@/app/@types';
 import { usePrompt } from '@/app/api/prompt/query';
 
-type Props = {};
+type Props = {
+  setDisplayResults: React.SetStateAction<any>,
+};
 
-export const SearchSteps = ({}: Props) => {
-  const [currentStep, setCurrentStep] = useState(3);
+export const SearchSteps = ({ setDisplayResults }: Props) => {
+  const [currentStep, setCurrentStep] = useState(1);
 
   const { data } = useStepperForm();
   const prompAction = usePrompt({ ...data, type: 'movies' });
@@ -25,6 +27,11 @@ export const SearchSteps = ({}: Props) => {
 
   const handlePreviousStep = () => {
     setCurrentStep(currentStep - 1);
+  };
+
+  const handleSearch = async () => {
+    await prompAction.refetch();
+    setDisplayResults(true);
   };
 
   const getStep = (
@@ -114,7 +121,7 @@ export const SearchSteps = ({}: Props) => {
             disablePrev={false}
             next={handleNextStep}
             totalSteps={TOTAL_STEPS}
-            hookAction={prompAction}
+            search={handleSearch}
           />
         </div>
       </div>

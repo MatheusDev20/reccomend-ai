@@ -1,4 +1,4 @@
-import { StepperAggregated } from '../context/stepper-context';
+import { StepperAggregated } from '../../context/stepper-context';
 
 export const preparePromptData = (data: StepperAggregated) => {
   const { mood, genres, streamings } = data;

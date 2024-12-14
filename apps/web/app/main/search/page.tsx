@@ -8,7 +8,7 @@ export default function Page() {
 
       <section className="pt-6">
         <SearchSteps />
-      </section>
+      </section> 
     </main>
   );
 }

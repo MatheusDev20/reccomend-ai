@@ -1,8 +1,8 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { useStreaming } from '@/app/api/streaming.query';
 import { StreamingService } from '@/app/@types';
 import { useStepperForm } from '@/app/context/stepper-context';
+import { useStreaming } from '@/app/api/streaming/query';
 
 export const ThirdsStep = () => {
   const [availableServices, setAvailableServices] = useState<
@@ -12,8 +12,9 @@ export const ThirdsStep = () => {
   const [isDraggingOver, setIsDraggingOver] = useState(false);
 
   const { data: streamingServices, isLoading, error } = useStreaming();
-  const { data, setData } = useStepperForm();
 
+  const { data, setData } = useStepperForm();
+  console.log('Data', streamingServices);
   const handleDrop = (e: any) => {
     e.preventDefault();
     setIsDraggingOver(false); // Remove drag-over feedback

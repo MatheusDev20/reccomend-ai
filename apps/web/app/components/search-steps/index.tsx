@@ -9,12 +9,12 @@ import clsx from 'clsx';
 import { NavigationsButtons } from './navigations-buttons';
 import { useStepperForm } from '@/app/context/stepper-context';
 import { Genre } from '@/app/@types';
-import { usePrompt } from '@/app/api/prompt.query';
+import { usePrompt } from '@/app/api/prompt/query';
 
 type Props = {};
 
 export const SearchSteps = ({}: Props) => {
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(3);
 
   const { data } = useStepperForm();
   const prompAction = usePrompt({ ...data, type: 'movies' });

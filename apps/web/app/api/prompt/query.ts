@@ -1,22 +1,29 @@
 import { useQuery } from '@tanstack/react-query';
-import { POST } from '../libs/axios/handlers';
-import { StepperAggregated } from '../context/stepper-context';
+import { StepperAggregated } from '../../context/stepper-context';
 import { preparePromptData } from './utils';
 
 export const sendPrompt = async (data: any) => {
   const { type, ...rest } = data;
   const formattedData = preparePromptData(rest);
-  const body = {
+  const params = {
     content: formattedData,
     type,
   };
-  const res = await POST<any>({
-    authenticated: false,
-    path: 'prompt',
-    body,
+
+  const response = await fetch('/api/prompt', {
+    body: JSON.stringify(params),
+    method: 'POST',
   });
 
-  return res;
+  // const res = await POST<any>({
+  //   authenticated: false,
+  //   path: 'prompt',
+  //   body,
+  // });
+
+  const { body } = await response.json();
+
+  return body;
 };
 
 /* Hook Itself */

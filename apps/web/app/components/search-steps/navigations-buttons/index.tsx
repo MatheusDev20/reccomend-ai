@@ -1,4 +1,4 @@
-import { usePrompt } from '@/app/api/prompt.query';
+import { usePrompt } from '@/app/api/query/prompt.query';
 import { BackArrow } from '@/app/icons/back-arrow';
 import { NextArrow } from '@/app/icons/next-arrow';
 import { SearchIcon } from '@/app/icons/search';

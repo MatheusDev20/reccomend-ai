@@ -7,7 +7,6 @@ export class FireExternalRequest {
   constructor(@Inject(HTTP_CLIENT) private httpClient: HttpClient) {}
 
   async fire(details: RequestDetails) {
-    const a = 3;
     const response = await this.httpClient.GET(details);
     return response;
   }

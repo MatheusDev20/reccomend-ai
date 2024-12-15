@@ -70,6 +70,11 @@ export type StreamingOutput = {
   display_priority: number;
 };
 
+export type Genre = {
+  id: number;
+  name: string;
+};
+
 export type MovieDTO = {
   adult: boolean;
   backdrop_full_url: string;
@@ -79,13 +84,17 @@ export type MovieDTO = {
   original_title: string;
   overview: string;
   popularity: number;
-  poster_full_url: string;
+  genres: Genre[];
+  poster_full_url_md: string;
+  poster_full_url_lg: string;
   release_date: string;
   title: string;
   video: boolean;
   vote_average: number;
   vote_count: number;
   streamings: StreamingOutput[];
+  runtime: number;
+  directing: any[];
 };
 
 export type SongDetailsDTO = {

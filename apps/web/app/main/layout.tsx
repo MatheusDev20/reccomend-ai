@@ -17,7 +17,7 @@ export default function RecomendationsLayout({
     <main className="min-h-screen">
       <Header
         theme={theme}
-        homeLink={<Link href="/recomendations">Recomenda AI</Link>}
+        homeLink={<Link href="/">Recomenda AI</Link>}
         navigation={<HeaderNavigation isToggled={isToggled} />}
         toogleTheme={changeTheme}
         toggleNav={() => setIsToggled(!isToggled)}

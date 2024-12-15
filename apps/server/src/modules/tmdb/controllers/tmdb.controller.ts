@@ -9,10 +9,10 @@ export class TMDBController {
 
   @Get('/')
   async movieDetails(@Query() query: GetMovieDetailsDTO) {
-    const res = await this.provider.getMovieDetails({
+    const movie = await this.provider.getMovieDetails({
       movieName: query.movieName,
     });
 
-    return ok(res.data);
+    return ok(movie);
   }
 }

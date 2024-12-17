@@ -64,8 +64,6 @@ export default function Page() {
           />
         </div>
       </section>
-
-      <footer>This is footer</footer>
     </main>
   );
 }

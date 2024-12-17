@@ -5,6 +5,7 @@ import { useTheme } from '../context/theme-context';
 import Link from 'next/link';
 import { HeaderNavigation } from '../components/header-navigation ';
 import { useState } from 'react';
+import { Footer } from '@repo/ui/footer';
 
 export default function RecomendationsLayout({
   children, // Page Outlet
@@ -24,6 +25,7 @@ export default function RecomendationsLayout({
         isToggled={isToggled}
       />
       {children}
+      <Footer />
     </main>
   );
 }

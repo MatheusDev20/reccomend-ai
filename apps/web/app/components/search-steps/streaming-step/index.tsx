@@ -69,29 +69,29 @@ export const ThirdsStep = () => {
   useEffect(() => {
     if (streamingServices) setAvailableServices(streamingServices);
   }, [streamingServices]);
-
   return (
-    <div className="flex w-full min-h-[50%] flex-row gap-3">
+    <div className="flex w-full min-h-[50%] flex-row gap-8">
       {/* Available Streaming Services */}
-      <div className="flex-col w-[30%] items-center flex gap-4 pt-4">
-        {availableServices.map((streaming) => {
-          const bgPath = `/streamings/${streaming.name.toLowerCase()}-bg.jpg`;
-          return (
-            <div
-              draggable="true"
-              onDragStart={(e) => handleDragStart(e, streaming.id)}
-              className="w-full max-w-[150px] h-[40px] cursor-grab rounded-md border-2 border-transparent hover:border-primary transition-all duration-300 transform hover:scale-105"
-              style={{
-                backgroundImage: `url(${bgPath})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              }}
-              key={streaming.id}
-            />
-          );
-        })}
-      </div>
-
+      {availableServices.length > 0 && (
+        <div className="flex-col w-[30%] items-center border-primary flex gap-4 pt-4 pb-4 border-[1.5px]">
+          {availableServices.map((streaming) => {
+            const bgPath = `/streamings/${streaming.name.toLowerCase()}-bg.jpg`;
+            return (
+              <div
+                draggable="true"
+                onDragStart={(e) => handleDragStart(e, streaming.id)}
+                className="w-full max-w-[150px] h-[40px] cursor-grab rounded-md border-2 border-transparent hover:border-primary transition-all duration-300 transform hover:scale-105"
+                style={{
+                  backgroundImage: `url(${bgPath})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
+                key={streaming.id}
+              />
+            );
+          })}
+        </div>
+      )}
       {/* Drop Zone */}
       <div
         className={`flex flex-col flex-1 gap-5 min-w-[40%] max-h-[100%] border-dashed border-4 p-4 rounded-md transition-all duration-300 ${
@@ -129,9 +129,9 @@ export const ThirdsStep = () => {
             <span className="text-gray-500 font-semibold">
               Arraste pra cá os serviços de streaming que você possui
             </span>
-            <span className="text-red-400">
+            {/* <span className="text-red-400">
               Deixe vazio se não possuir nenhum
-            </span>
+            </span> */}
 
             {/* <button
               onClick={handleEmptyServices}

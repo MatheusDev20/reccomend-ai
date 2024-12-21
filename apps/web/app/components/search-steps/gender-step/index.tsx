@@ -3,6 +3,8 @@ import { useStepperForm } from '@/app/context/stepper-context';
 import { Genders } from '@/app/utils/genders';
 import clsx from 'clsx';
 
+const LIMIT = 5;
+
 export const SecondStep = () => {
   const { data, setData } = useStepperForm();
 
@@ -20,7 +22,7 @@ export const SecondStep = () => {
         return { ...prevData, genres: filteredMoods };
       }
 
-      if (currentGenders.length < 3) {
+      if (currentGenders.length < LIMIT) {
         return { ...prevData, genres: [...currentGenders, selected] };
       }
 

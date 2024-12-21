@@ -102,7 +102,7 @@ export const ThirdsStep = () => {
 
         {/* Drop Zone */}
         <div
-          className={`${data.streamings.length > 0 ? 'grid grid-cols-5 gap-8 auto-rows-min' : 'flex'} overflow-hidden flex-1 min-w-[70%] min-h-[400px] gap-2 border-dashed border-4 p-4 rounded-md transition-all duration-300 ${
+          className={`${data.streamings.length > 0 ? 'grid grid-cols-5 2xl:gap-6 md:gap-8 auto-rows-min' : 'flex'} overflow-hidden flex-1 min-w-[70%] min-h-[400px] border-dashed border-4 p-4 rounded-md transition-all duration-300 ${
             isDraggingOver ? 'border-green-400 bg-green-50' : 'border-primary'
           }`}
           onDragOver={handleDragOver}

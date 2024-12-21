@@ -35,10 +35,14 @@ export class PromptController {
     const promises = completions[type]['recomendations'].map((recomendation) =>
       this.TMDBProvider.getMovieDetails({
         movieName: recomendation.movieName,
+        myStreamings: content.streaming,
       }),
     );
 
     const response = await Promise.all(promises);
-    return ok(response);
+    return ok({
+      [type]: response.filter(Boolean),
+      filtered: response.length - response.filter(Boolean).length,
+    });
   }
 }

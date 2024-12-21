@@ -12,7 +12,7 @@ import { Type } from 'class-transformer';
 
 export class GenreDTO {
   @IsNotEmpty()
-  @IsString()
+  @IsNumber()
   id: number;
 
   @IsNotEmpty()

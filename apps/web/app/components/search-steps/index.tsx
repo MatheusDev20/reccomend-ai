@@ -81,11 +81,11 @@ export const SearchSteps = ({ search }: Props) => {
           <div className="w-12 h-12 border-4 border-t-transparent border-white rounded-full animate-spin"></div>
         </div>
       )}
-      <div className="flex flex-col md:flex-row gap-4 min-h-screen lg:pl-24 lg:pr-14">
+      <div className="flex flex-col gap-4 lg:pl-24 lg:pr-14">
         {/* Stepper Section */}
-        <div className="flex flex-col md:flex-row gap-6 pt-6 md:pt-0 pb-0 md:pl-12 md:pr-12 justify-between">
-          <div className="h-full pl-6 pr-6 self-center">
-            <ul className="steps steps-horizontal md:steps-vertical p-3 md:p-0 md:min-h-[300px]">
+        <div className="flex flex-col md:flex-row gap-6 pt-6 md:pt-0 pb-0 justify-between">
+          <div className="h-full w-full pl-6 pr-6 self-center">
+            <ul className="steps w-full steps-horizontal p-3 pt-4 pb-4">
               {STEPS.map((step) => (
                 <li
                   key={step.label}

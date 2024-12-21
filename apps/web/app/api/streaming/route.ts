@@ -12,7 +12,6 @@ export async function GET() {
 
     return response;
   } catch (err) {
-    console.error(err);
-    return err;
+    throw new Error('Error processing request');
   }
 }

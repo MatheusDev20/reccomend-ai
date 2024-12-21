@@ -74,4 +74,19 @@ export const Genders = [
     label: 'Comédia Dramática',
     bgPath: '/genders/drama-comedy.jpg',
   },
+  {
+    id: 'd4f00b9f-b5d8-4f8f-bc5e-6d7c6b2b12d3',
+    label: 'Aventura',
+    bgPath: '/genders/indiana-jones.jpg',
+  },
+  {
+    id: 'a2e3c412-3f5d-4593-a45c-9e9b94c20d01',
+    label: 'Policial',
+    bgPath: '/genders/seven.jpg',
+  },
+  {
+    id: 'e1f99c4d-88b1-42a7-91df-823e576fb3c7',
+    label: 'Histórico',
+    bgPath: '/genders/gladiator.jpg',
+  },
 ];

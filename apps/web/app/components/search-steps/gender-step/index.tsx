@@ -31,12 +31,25 @@ export const SecondStep = () => {
 
   return (
     <div className="flex flex-col items-center gap-4">
-      <h2 className="text-lg font-bold">
-        Quais genêros você gostaria de assistir hoje? assistir hoje?
-      </h2>
-      <span className="text-primary font-semibold">Selecione até 3</span>
-
-      <div className="grid grid-cols-5 gap-4 mt-6">
+      <div className="mt-4 text-gray-600 text-sm">
+        {selecteGenres.length > 0 ? (
+          <div className="flex flex-wrap gap-2">
+            {selecteGenres.map((genre) => (
+              <span
+                key={genre.id}
+                className="flex items-center gap-2 px-3 py-1 bg-[#6C63FF] text-white text-sm font-semibold rounded-full"
+              >
+                {genre.label}
+              </span>
+            ))}
+          </div>
+        ) : (
+          <span className="text-primary md:text-2xl font-semibold text-sm">
+            Meus gêneros favoritos são...
+          </span>
+        )}
+      </div>
+      <div className="grid grid-cols-6 gap-4 mt-6">
         {Genders.map((genre) => {
           const selected = selecteGenres.find((g) => g.id === genre.id);
           return (
@@ -64,24 +77,6 @@ export const SecondStep = () => {
             </div>
           );
         })}
-      </div>
-      <div className="mt-4 text-gray-600 text-sm">
-        {selecteGenres.length > 0 ? (
-          <div className="flex flex-wrap gap-2">
-            {selecteGenres.map((genre) => (
-              <span
-                key={genre.id}
-                className="flex items-center gap-2 px-3 py-1 bg-[#6C63FF] text-white text-sm font-semibold rounded-full"
-              >
-                {genre.label}
-              </span>
-            ))}
-          </div>
-        ) : (
-          <span className="text-gray-600 text-sm">
-            Quais seus genêros de filme favoritos favoritos?
-          </span>
-        )}
       </div>
     </div>
   );

@@ -12,12 +12,11 @@ export const ThirdsStep = () => {
   const [isDraggingOver, setIsDraggingOver] = useState(false);
 
   const { data: streamingServices, isLoading, error } = useStreaming();
-
   const { data, setData } = useStepperForm();
-  console.log('Data', streamingServices);
+
   const handleDrop = (e: any) => {
     e.preventDefault();
-    setIsDraggingOver(false); // Remove drag-over feedback
+    setIsDraggingOver(false);
 
     const droppedId = Number(e.dataTransfer.getData('streamingId'));
 
@@ -69,18 +68,27 @@ export const ThirdsStep = () => {
   useEffect(() => {
     if (streamingServices) setAvailableServices(streamingServices);
   }, [streamingServices]);
+
   return (
-    <div className="flex w-full min-h-[50%] flex-row gap-8">
+    <div className="flex flex-col w-full min-h-[50%] gap-8">
+      <div className="flex items-center p-8 gap-12 justify-center">
+        <span className="self-center text-xs font-semibold md:text-2xl text-primary">
+          Meus serviços de streaming são...
+        </span>
+        <button className="max-w-[250px] p-4 justify-self-center hover:bg-[#7C73FF] hover:scale-100 delay-150 ease-in-out transition md:w-[50%] h-8 bg-primary text-white items-center flex justify-center gap-3 rounded-md font-semibold text-sm md:text-md">
+          Não me importo com essa etapa
+        </button>
+      </div>
       {/* Available Streaming Services */}
-      {availableServices.length > 0 && (
-        <div className="flex-col w-[30%] items-center border-primary flex gap-4 pt-4 pb-4 border-[1.5px]">
+      <div className="flex md:flex-row gap-8">
+        <div className="flex-col min-w-[30%] h-[400px] items-center border-primary flex gap-4 pt-4 pb-4">
           {availableServices.map((streaming) => {
             const bgPath = `/streamings/${streaming.name.toLowerCase()}-bg.jpg`;
             return (
               <div
                 draggable="true"
                 onDragStart={(e) => handleDragStart(e, streaming.id)}
-                className="w-full max-w-[150px] h-[40px] cursor-grab rounded-md border-2 border-transparent hover:border-primary transition-all duration-300 transform hover:scale-105"
+                className="w-full max-w-[120px] h-[40px] cursor-grab rounded-md border-2 border-transparent hover:border-primary transition-all duration-300 transform hover:scale-105"
                 style={{
                   backgroundImage: `url(${bgPath})`,
                   backgroundSize: 'cover',
@@ -91,56 +99,48 @@ export const ThirdsStep = () => {
             );
           })}
         </div>
-      )}
-      {/* Drop Zone */}
-      <div
-        className={`flex flex-col flex-1 gap-5 min-w-[40%] max-h-[100%] border-dashed border-4 p-4 rounded-md transition-all duration-300 ${
-          isDraggingOver ? 'border-green-400 bg-green-50' : 'border-primary'
-        }`}
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
-        onDrop={handleDrop}
-      >
-        {data.streamings.length > 0 ? (
-          data.streamings.map((streaming) => {
-            const bgPath = `/streamings/${streaming.name.toLowerCase()}-bg.jpg`;
-            return (
-              <div
-                className="relative w-full max-w-[150px] min-h-[40px] rounded-md border-2 border-primary"
-                style={{
-                  backgroundImage: `url(${bgPath})`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                }}
-                key={streaming.id}
-              >
-                {/* Close Button */}
-                <button
-                  onClick={() => handleRemoveDropped(streaming.id)}
-                  className="absolute top-[-10px] right-[-10px] bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm hover:bg-red-700 transition duration-300"
-                >
-                  ×
-                </button>
-              </div>
-            );
-          })
-        ) : (
-          <div className="flex flex-col gap-8 items-center m-auto">
-            <span className="text-gray-500 font-semibold">
-              Arraste pra cá os serviços de streaming que você possui
-            </span>
-            {/* <span className="text-red-400">
-              Deixe vazio se não possuir nenhum
-            </span> */}
 
-            {/* <button
-              onClick={handleEmptyServices}
-              className="mt-3 w-[100%] p-4 hover:bg-[#7C73FF] hover:scale-100 delay-150 ease-in-out transition md:p-0 md:w-[50%] md:m-auto h-10 bg-primary text-white items-center flex justify-center gap-3 rounded-md font-semibold text-sm md:text-md>"
-            >
-              <span>Não possuo serviços</span>
-            </button> */}
-          </div>
-        )}
+        {/* Drop Zone */}
+        <div
+          className={`${data.streamings.length > 0 ? 'grid grid-cols-5 gap-8 auto-rows-min' : 'flex'} overflow-hidden flex-1 min-w-[70%] min-h-[400px] gap-2 border-dashed border-4 p-4 rounded-md transition-all duration-300 ${
+            isDraggingOver ? 'border-green-400 bg-green-50' : 'border-primary'
+          }`}
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
+        >
+          {data.streamings.length === 0 && (
+            <div className="flex flex-col m-auto w-full items-center justify-center gap-4 text-center">
+              <span className="text-sm md:text-md font-medium text-primary">
+                Arraste para cá os serviços que você possui
+              </span>
+            </div>
+          )}
+
+          {data.streamings.length > 0 &&
+            data.streamings.map((streaming) => {
+              const bgPath = `/streamings/${streaming.name.toLowerCase()}-bg.jpg`;
+              return (
+                <div
+                  className="relative w-[120px] h-[40px] rounded-md border-2 border-primary"
+                  style={{
+                    backgroundImage: `url(${bgPath})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                  }}
+                  key={streaming.id}
+                >
+                  {/* Close Button */}
+                  <button
+                    onClick={() => handleRemoveDropped(streaming.id)}
+                    className="absolute top-[-10px] right-[-10px] bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm hover:bg-red-700 transition duration-300"
+                  >
+                    ×
+                  </button>
+                </div>
+              );
+            })}
+        </div>
       </div>
     </div>
   );

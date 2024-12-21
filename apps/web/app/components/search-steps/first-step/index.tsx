@@ -5,6 +5,7 @@ export type Mood = {
   moodId: number,
   label: string,
 };
+const LIMIT = 10;
 
 export const FirstStep = () => {
   const { data, setData } = useStepperForm();
@@ -21,7 +22,7 @@ export const FirstStep = () => {
         return { ...prevData, mood: filteredMoods };
       }
 
-      if (currentMoods.length < 3) {
+      if (currentMoods.length < LIMIT) {
         return { ...prevData, mood: [...currentMoods, mood] };
       }
 
@@ -32,33 +33,8 @@ export const FirstStep = () => {
   const selectedMoods = data.mood || [];
 
   return (
-    <div className="flex flex-col w-full items-center gap-4">
-      <h2 className="text-sm md:text-lg font-bold">
-        Que tipo de sentimento o filme de hoje deve te despertar?
-      </h2>
-      <p className="text-gray-600 text-sm">
-        <span className="text-primary font-semibold">Selecione até 3</span>
-      </p>
-      <div className="grid grid-cols-3 gap-4 mt-6">
-        {MOODS.map((mood) => {
-          const selected = selectedMoods.find((m) => m.moodId === mood.id);
-          return (
-            <button
-              key={mood.label}
-              onClick={() =>
-                handleMoodSelect({ moodId: mood.id, label: mood.label })
-              }
-              className={`flex flex-col items-center justify-center p-4 border rounded-lg text-center hover:scale-105 transition transform ${
-                selected ? 'border-primary' : 'border-gray-300'
-              }`}
-            >
-              <span className="text-2xl">{mood.emoji}</span>
-              <span className="mt-2 text-sm font-medium">{mood.label}</span>
-            </button>
-          );
-        })}
-      </div>
-      <div className="mt-4 text-gray-600 text-sm">
+    <div className="flex p-2 flex-col w-full gap-4">
+      <div className="self-center mt-4 text-gray-600 text-sm">
         {selectedMoods.length > 0 ? (
           <div className="flex flex-wrap gap-2">
             {selectedMoods.map((mood) => (
@@ -71,10 +47,29 @@ export const FirstStep = () => {
             ))}
           </div>
         ) : (
-          <span className="text-gray-600 text-sm">
-            O que melhor te representa hoje
+          <span className="text-primary font-semibold text-xs md:text-2xl">
+            Eu quero me sentir...
           </span>
         )}
+      </div>
+      <div className="grid grid-cols-6 gap-4 mt-6">
+        {MOODS.map((mood) => {
+          const selected = selectedMoods.find((m) => m.moodId === mood.id);
+          return (
+            <button
+              key={mood.label}
+              onClick={() =>
+                handleMoodSelect({ moodId: mood.id, label: mood.label })
+              }
+              className={`flex flex-col items-center justify-center p-4 border rounded-lg text-center hover:scale-105 transition transform ${
+                selected ? 'border-primary border-[2.5px]' : 'border-gray-300'
+              }`}
+            >
+              <span className="text-2xl">{mood.emoji}</span>
+              <span className="mt-2 text-sm font-medium">{mood.label}</span>
+            </button>
+          );
+        })}
       </div>
     </div>
   );

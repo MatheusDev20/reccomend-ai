@@ -10,18 +10,17 @@ export const assistantResponsibleFor = {
   movies: 'Alan',
 };
 
-const Morrisey = {
+const Morrisey = (params: undefined | any) => ({
   name: 'Morrisey',
-  instructions:
-    'You are a helpful assistant that will give me 5 musics recomendations based on some other music or artist provided by the user',
+  instructions: `You are a helpful assistant that will give me ${params.limit ?? process.env.FALLBACK_RETURN_ITEMS} musics recomendations based on some other music or artist provided by the user`,
   model: process.env.MODEL,
-};
-const Alan = {
+});
+
+const Alan = (params: undefined | any) => ({
   name: 'Alan',
-  instructions:
-    'You are a helpful assistant that will give me 5 movies recomendations based on some other movie or director provided by the user',
+  instructions: `You are a helpful assistant that will give me ${params.limit ?? process.env.FALLBACK_RETURN_ITEMS} movies recomendations based on some other movie or director provided by the user`,
   model: process.env.MODEL,
-};
+});
 
 const assistants = [
   {

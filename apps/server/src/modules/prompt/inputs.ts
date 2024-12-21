@@ -13,7 +13,7 @@ import { Type } from 'class-transformer';
 export class GenreDTO {
   @IsNotEmpty()
   @IsString()
-  id: string;
+  id: number;
 
   @IsNotEmpty()
   @MaxLength(20)
@@ -57,4 +57,8 @@ export class PromptInputDTO {
   @MaxLength(20)
   @IsIn(['music', 'movies'])
   type: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  returnItems: number;
 }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Body, Controller, Post } from '@nestjs/common';
 import { PromptInputDTO } from './inputs';
 import { PromptProvider } from './prompt.provider';
@@ -16,7 +17,7 @@ export class PromptController {
   @Throttle({ default: { limit: 10, ttl: 86_400_000 } })
   @Post()
   async handleCompletion(@Body() data: PromptInputDTO) {
-    const { content, type } = data;
+    const { content, type, returnItems } = data;
 
     const completionType = type as keyof CompletionsCategories;
 
@@ -25,6 +26,7 @@ export class PromptController {
     >({
       content,
       recomendationType: completionType,
+      limit: returnItems,
     });
 
     const { completions } = generatedData;

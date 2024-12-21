@@ -6,12 +6,13 @@ export class ModelBehaviour {
   async selectAssistant(
     name: string,
     recomendationType: string,
+    params?: any,
   ): Promise<Behaviour> {
     const selected = assistants.find(
       (assistant) => assistant[recomendationType].name === name,
     );
     if (!selected) throw new Error('Assistant not found');
 
-    return selected[recomendationType];
+    return selected[recomendationType](params);
   }
 }

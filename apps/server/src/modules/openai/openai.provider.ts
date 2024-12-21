@@ -14,6 +14,7 @@ export type CompleteInput = {
   content: any;
   formatter: (content: any) => string;
   recomendationType: string;
+  limit: number;
 };
 
 @Injectable()
@@ -54,6 +55,7 @@ class OpenAIProvider {
     const behaviour = await this.assistant.selectAssistant(
       assistantResponsibleFor[data.recomendationType],
       data.recomendationType,
+      { limit: data.limit },
     );
 
     // if (!content.includes(recomendationType)) {

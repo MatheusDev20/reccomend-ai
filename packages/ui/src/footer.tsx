@@ -1,6 +1,6 @@
 export const Footer = () => {
   return (
-    <footer className="flex justify-center p-4 items-center min-h-[80px] mt-4 bg-gray-50 border-t border-gray-300">
+    <footer className="flex p-8 justify-center items-center max-h-[55px] mt-8 bg-gray-50 border-t border-gray-300">
       <span className="text-gray-800 text-md font-bold">
         Made with ❤️ by{' '}
         <a

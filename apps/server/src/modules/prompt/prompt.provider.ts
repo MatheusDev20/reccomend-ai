@@ -7,6 +7,7 @@ import { pickFormatter } from './formaters';
 type Input<K> = {
   content: MoviePromptDTO;
   recomendationType: K;
+  limit: number;
 };
 @Injectable()
 export class PromptProvider {
@@ -15,6 +16,7 @@ export class PromptProvider {
   async respond<K extends keyof CompletionsCategories>({
     content,
     recomendationType,
+    limit,
   }: Input<K>): Promise<RecomendationCompletion<K>> {
     const formatter = pickFormatter(recomendationType);
 
@@ -22,6 +24,7 @@ export class PromptProvider {
       content,
       formatter,
       recomendationType,
+      limit,
     });
 
     return {

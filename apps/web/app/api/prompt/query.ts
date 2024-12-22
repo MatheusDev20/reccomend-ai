@@ -8,6 +8,7 @@ export const sendPrompt = async (data: any) => {
   const params = {
     content: formattedData,
     type,
+    returnItems: 6,
   };
 
   const response = await fetch('/api/prompt', {

@@ -1,5 +1,5 @@
 export type Genre = {
-  id: string,
+  id: number,
   label: string,
   bgPath: string,
 };
